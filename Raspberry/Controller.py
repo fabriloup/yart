@@ -246,6 +246,7 @@ class TelecineCamera(PiCamera) :
         if self.doResize == True :
             resize = (self.resize[0], self.resize[1])
         self.capture_sequence(self.captureGenerator(), format="jpeg", use_video_port=self.use_video_port, resize=resize)
+        #self.capture_sequence(self.captureGenerator(), format="png", use_video_port=False, resize=resize)
         stopTime = time.time()
         fps = float(self.frameCounter/(stopTime-startTime))
         msg = "Capture terminated    Count %i    fps %f \n"%(self.frameCounter , fps)
@@ -269,6 +270,7 @@ class TelecineCamera(PiCamera) :
 #        print("digital_gain", self.digital_gain)
 #        print("iso", self.iso)
         camera.capture(stream, format="jpeg", quality=90, use_video_port=self.use_video_port, resize=resize)
+        #camera.capture(stream, format="png", use_video_port=False, resize=resize)
         stream.seek(0)
         image = stream.getvalue()
         header = {'type':HEADER_IMAGE, 'count':motor.frameCounter, 'bracket':0, 'shutter':self.exposure_speed,'gains':self.awb_gains,'analog_gain':self.analog_gain,'digital_gain':self.digital_gain}
