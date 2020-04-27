@@ -70,7 +70,7 @@ class TelecineCamera(PiCamera) :
         self.bracket_steps = 1
         self.shutter_speed_wait = 4
         self.shutter_auto_wait = 8
-        self.use_video_port = True
+        self.use_video_port = False
         self.bracket_dark_coefficient = 1.
         self.bracket_light_coefficient = 1.
         self.capture_method =CAPTURE_ON_FRAME
@@ -269,7 +269,7 @@ class TelecineCamera(PiCamera) :
 #        print("analog_gain", self.analog_gain)
 #        print("digital_gain", self.digital_gain)
 #        print("iso", self.iso)
-        camera.capture(stream, format="jpeg", quality=90, use_video_port=self.use_video_port, resize=resize)
+        camera.capture(stream, format="jpeg", quality=100, use_video_port=self.use_video_port, resize=resize)
         #camera.capture(stream, format="png", use_video_port=False, resize=resize)
         stream.seek(0)
         image = stream.getvalue()
@@ -291,7 +291,7 @@ class TelecineCamera(PiCamera) :
             resize = (self.resize[0], self.resize[1])
         print("Resize:", resize, " Doresize", self.doResize)
         with picamera.array.PiRGBArray(camera,  size=resize) as output:
-            camera.capture(output, format='rgb', resize=resize, use_video_port=True)
+            camera.capture(output, format='rgb', resize=resize, use_video_port=False)
             return output.array
 
     def get_bgr_image(self):
@@ -300,7 +300,7 @@ class TelecineCamera(PiCamera) :
             resize = (self.resize[0], self.resize[1])
         print("Resize:", resize, " Doresize", self.doResize)
         with picamera.array.PiRGBArray(self,  size=resize) as output:
-            self.capture(output, format='bgr', resize=resize, use_video_port=True)
+            self.capture(output, format='bgr', resize=resize, use_video_port=False)
             return output.array
         
     def get_bgr_mean(self, num) :
