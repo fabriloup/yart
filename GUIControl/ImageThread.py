@@ -114,6 +114,7 @@ class ImageThread (QThread):
                 if self.doCalibrate :
                     image = image * self.table
                 image = np.clip(image*255, 0, 255).astype('uint8')
+           
 #                 if self.equalize :
 #                     H, S, V = cv2.split(cv2.cvtColor(image, cv2.COLOR_BGR2HSV))
 #                     low, high = np.percentile(V, (1, 99))
